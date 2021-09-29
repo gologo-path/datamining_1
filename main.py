@@ -70,6 +70,10 @@ def build_plot(_ham, _spam):
     num_words_ham = find_top_20(count_words(to_single_list(_ham)))
     num_words_spam = find_top_20(count_words(to_single_list(_spam)))
 
+    dict_list = list(num_words_ham.items())
+    dict_list.sort(key=lambda i: i[1], reverse=True)
+    new_num_words_ham = dict(dict_list)
+
     axs[0, 0].bar(word_len_ham.keys(), normalize(word_len_ham), color="y", alpha=0.5)
     axs[0, 0].bar(word_len_spam.keys(), normalize(word_len_spam), color="b", alpha=0.5)
     axs[0, 0].legend(["ham", "spam"])
@@ -80,9 +84,9 @@ def build_plot(_ham, _spam):
     axs[0, 1].bar(message_len_spam.keys(), message_len_spam.values(), color="b", alpha=0.5)
     axs[0, 1].legend(["ham", "spam"])
     axs[0, 1].set_xlabel("size")
-    axs[0, 1].set_ylabel("letters")
+    axs[0, 1].set_ylabel("messages")
 
-    axs[1, 0].bar(num_words_ham.keys(), num_words_ham.values(), color="y", alpha=0.5)
+    axs[1, 0].bar(new_num_words_ham.keys(), new_num_words_ham.values(), color="y", alpha=0.5)
     axs[1, 0].legend(["ham"])
     axs[1, 0].set_xlabel("word")
     axs[1, 0].set_ylabel("numbers")
